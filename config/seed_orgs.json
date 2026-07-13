@@ -1,0 +1,44 @@
+{
+    "stream_a": {
+        "description": "Targeted ML-specialist organizations with established, focused repository portfolios.",
+        "organizations": [
+            "pytorch",
+            "huggingface",
+            "jax-ml",
+            "google-deepmind",
+            "EleutherAI",
+            "Farama-Foundation",
+            "vllm-project",
+            "ggerganov",
+            "Lightning-AI",
+            "wandb",
+            "mistralai",
+            "meta-llama",
+            "triton-lang",
+            "tinygrad",
+            "onnx",
+            "openxla",
+            "crewAIInc",
+            "run-llama",
+            "langchain-ai",
+            "stability-ai",
+            "cohere-ai",
+            "anthropic",
+            "isaac-sim",
+            "ROCm",
+            "openvinotoolkit"
+        ],
+        "filters": "50+ stars, regex doc exclusions, no language gate"
+    },
+    "stream_b": {
+        "description": "Targeted large general-purpose organizations with significant ML portfolios alongside non-ML work.",
+        "organizations": [
+            "NVIDIA",
+            "openai",
+            "facebookresearch",
+            "apple",
+            "amazon-science"
+        ],
+        "filters": "500+ stars, regex doc exclusions, 5% execution language gate (Python, C++, C, Rust, Go, Mojo, CUDA), tag or language intersection check"
+    }
+}

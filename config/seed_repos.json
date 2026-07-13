@@ -1,0 +1,33 @@
+{
+    "stream_c": {
+        "description": "Targeted specific repositories from organizations too large or too mixed for org-level sweeps. Hardcoded explicit arrays in config/seed_repos.json. Normal observation window verification applies. GitHub node_id used as primary key — deduplication with all other streams is guaranteed.",
+        "repositories": [
+            "google/jax",
+            "google/flax",
+            "google/orbax",
+            "google/gemma.cpp",
+            "google/jaxmd",
+            "google-research/t5x",
+            "google-research/vision_transformer",
+            "google-research/bert",
+            "google-research/scenic",
+            "google-research/seed_rl",
+            "google-deepmind/graphcast",
+            "google-deepmind/alphafold",
+            "google-deepmind/gemma",
+            "microsoft/DeepSpeed",
+            "microsoft/LoRA",
+            "microsoft/LightGBM",
+            "microsoft/FLAML",
+            "microsoft/promptflow",
+            "microsoft/autogen",
+            "microsoft/semantic-kernel",
+            "microsoft/phi-3",
+            "microsoft/torchscale",
+            "microsoft/unilm",
+            "microsoft/onnxruntime",
+            "apache/tvm",
+            "apache/mxnet"
+        ]
+    }
+}
