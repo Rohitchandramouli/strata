@@ -1,0 +1,12 @@
+#Environment Variables
+.env
+
+#Massive Data Files
+data/raw/
+data/processed/
+
+
+#Python Cache Folder and Files
+__pycache__/
+.pytest_cache/
+*.pyc
