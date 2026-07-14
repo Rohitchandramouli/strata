@@ -61,7 +61,18 @@ REPOSITORY_SEARCH_QUERY = """
                         defaultBranchRef {
                             name
                         }
-                        directoryTrees: objects(expressions: ["HEAD:", "HEAD:.github/"]) {
+                        rootDir: object(expression: "HEAD:") {
+                            ... on Tree {
+                                entries {
+                                    name
+                                    type
+                                    object {
+                                        id
+                                    }
+                                }
+                            }
+                        }
+                        githubDir: object(expression: "HEAD:.github/") {
                             ... on Tree {
                                 entries {
                                     name
@@ -129,7 +140,18 @@ REPOSITORY_NODE_QUERY = """
             defaultBranchRef {
                 name
             }
-            directoryTrees: objects(expressions: ["HEAD:", "HEAD:.github/"]) {
+            rootDir: object(expression: "HEAD:") {
+                ... on Tree {
+                    entries {
+                        name
+                        type
+                        object {
+                            id
+                        }
+                    }
+                }
+            }
+            githubDir: object(expression: "HEAD:.github/") {
                 ... on Tree {
                     entries {
                         name
@@ -143,6 +165,7 @@ REPOSITORY_NODE_QUERY = """
         }
     }
 """
+
 
 
 #It is the query used to search for issues on GitHub based on a query string and an optional cursor for pagination, including Rate Limit Information.
