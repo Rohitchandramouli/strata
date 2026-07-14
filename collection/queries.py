@@ -4,7 +4,7 @@ It is used to query the GitHub API for repositories that match certain criteria,
 It is independent of the other modules in the project and can be used as a standalone module for querying the GitHub API.
 """
 
-#It is the query used to search for repositories on GitHub based on a query string and an optional cursor for pagination,including Rate Limit Information.
+# It is the query used to search for repositories on GitHub based on a query string and an optional cursor for pagination, including Rate Limit Information.
 REPOSITORY_SEARCH_QUERY = """
     query SearchRepositories($queryString: String!, $cursor: String) {
         rateLimit {
@@ -61,17 +61,16 @@ REPOSITORY_SEARCH_QUERY = """
                         defaultBranchRef {
                             name
                         }
-                        readme: object(expression: "HEAD:README.md") {
-                            id
-                        }
-                        contributing: object(expression: "HEAD:CONTRIBUTING.md") {
-                            id
-                        }
-                        changelog: object(expression: "HEAD:CHANGELOG.md") {
-                            id
-                        }
-                        codeOfConduct: object(expression: "HEAD:CODE_OF_CONDUCT.md") {
-                            id
+                        directoryTrees: objects(expressions: ["HEAD:", "HEAD:.github/"]) {
+                            ... on Tree {
+                                entries {
+                                    name
+                                    type
+                                    object {
+                                        id
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -80,9 +79,9 @@ REPOSITORY_SEARCH_QUERY = """
     }
 """
 
-#It is the query used to retrieve data about a specific repository from the Github API including Rate Limit Information.
+# It is the query used to retrieve data about a specific repository from the Github API including Rate Limit Information.
 REPOSITORY_NODE_QUERY = """
-    query GetRepository($name: String!,$owner: String!) {
+    query GetRepository($name: String!, $owner: String!) {
         rateLimit {
             limit
             cost
@@ -130,21 +129,21 @@ REPOSITORY_NODE_QUERY = """
             defaultBranchRef {
                 name
             }
-            readme: object(expression: "HEAD:README.md") {
-                id
-            }
-            contributing: object(expression: "HEAD:CONTRIBUTING.md") {
-                id
-            }
-            changelog: object(expression: "HEAD:CHANGELOG.md") {
-                id
-            }
-            codeOfConduct: object(expression: "HEAD:CODE_OF_CONDUCT.md") {
-                id
+            directoryTrees: objects(expressions: ["HEAD:", "HEAD:.github/"]) {
+                ... on Tree {
+                    entries {
+                        name
+                        type
+                        object {
+                            id
+                        }
+                    }
+                }
             }
         }
     }
 """
+
 
 #It is the query used to search for issues on GitHub based on a query string and an optional cursor for pagination, including Rate Limit Information.
 ISSUES_SEARCH_QUERY = """
