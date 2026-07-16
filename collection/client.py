@@ -4,9 +4,10 @@ It knows nothing about repositories, rate limits, streams, or GraphQL semantics.
 It just sends POST requests and returns responses.
 """
 
-import httpx
 import time
 from typing import Any, Optional
+
+import httpx
 
 GITHUB_GRAPHQL_URL = "https://api.github.com/graphql"
 
@@ -53,9 +54,17 @@ class GitHubClient:
                     continue
                 raise GitHubAPIError(f"Network failure after retries: {e}") from e
 
-            body = response.json()
+            body: dict[str, Any] = response.json()
             if "errors" in body:
                 raise GitHubAPIError(f"GraphQL error: {body['errors']}")
+
+            # Every query we send requests a rateLimit block, so a well-formed response
+            # must carry one. A null/missing rateLimit means a malformed or partial
+            # response — treat it as non-recoverable rather than passing it downstream.
+            data = body.get("data")
+            if data is not None and data.get("rateLimit") is None:
+                raise GitHubAPIError(f"Response missing rateLimit block: {body}")
+
             return body
 
         raise GitHubAPIError("unreachable: retry loop exited without returning")
